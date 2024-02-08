@@ -1,11 +1,16 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:todoey/consts.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({super.key});
+  final FunctionStringCallback addTaskCallBack;
+
+  AddTaskScreen({super.key, required this.addTaskCallBack});
 
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle = 'asd';
     return Container(
       color: const Color(0xff757575),
       child: Container(
@@ -33,22 +38,27 @@ class AddTaskScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
               decoration: kTextFieldDecoration,
+              onChanged: (value) {
+                newTaskTitle = value;
+              },
             ),
             const SizedBox(
               height: 25,
             ),
             ElevatedButton(
               style: kElevatedButtomStyle,
+              onPressed: () {
+                addTaskCallBack(newTaskTitle);
+              },
               child: const Text(
                 'Add',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
             ),
           ],
         ),
