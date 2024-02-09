@@ -4,6 +4,8 @@ import 'package:todoey/screens/add_task_screen.dart';
 import 'package:todoey/widgets/tasks_list.dart';
 import 'package:todoey/models/task.dart';
 
+import 'package:provider/provider.dart';
+
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 
@@ -37,6 +39,9 @@ class _TasksScreenState extends State<TasksScreen> {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: AddTaskScreen(addTaskCallBack: (newTaskTitle) {
+                  setState(() {
+                    tasks.add(Task(name: newTaskTitle));
+                  });
                 }),
               ),
             ),
@@ -53,10 +58,10 @@ class _TasksScreenState extends State<TasksScreen> {
               right: 30.0,
               bottom: 30.0,
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30.0,
                   child: Icon(
@@ -65,10 +70,10 @@ class _TasksScreenState extends State<TasksScreen> {
                     size: 30.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Text(
+                const Text(
                   'Todoey',
                   style: TextStyle(
                     color: Colors.white,
@@ -77,8 +82,8 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
-                  style: TextStyle(
+                  '${tasks.length} Tasks',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18.0,
                   ),
