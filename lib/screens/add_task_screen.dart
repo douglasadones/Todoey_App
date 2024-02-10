@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey/consts.dart';
+import 'package:todoey/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function addTaskCallBack;
-
   const AddTaskScreen({
     super.key,
-    required this.addTaskCallBack,
   });
 
   @override
@@ -41,14 +40,16 @@ class AddTaskScreen extends StatelessWidget {
               ),
             ),
             TextField(
+              textCapitalization: TextCapitalization.sentences,
               autofocus: true,
               decoration: kTextFieldDecoration,
               onChanged: (value) {
                 newTaskTitle = value;
               },
-              onSubmitted: (value) {
+              onSubmitted: (newTask) {
                 if (newTaskTitle != '') {
-                  addTaskCallBack(newTaskTitle);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
                 }
                 Navigator.pop(context);
               },
@@ -60,7 +61,8 @@ class AddTaskScreen extends StatelessWidget {
               style: kElevatedButtomStyle,
               onPressed: () {
                 if (newTaskTitle != '') {
-                  addTaskCallBack(newTaskTitle);
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
                 }
                 Navigator.pop(context);
               },
